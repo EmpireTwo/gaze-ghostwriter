@@ -1,0 +1,74 @@
+{
+    "name": "empire2/gaze-ghostwriter",
+    "description": "AI-assisted support-mail ghostwriter for Laravel — IMAP inbound, RAG-augmented draft generation, and Gaze-guarded LLM calls.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": ["laravel", "ai", "llm", "support", "imap", "ghostwriter", "gaze", "pii", "livewire"],
+    "homepage": "https://github.com/EmpireTwo/gaze-ghostwriter",
+    "support": {
+        "issues": "https://github.com/EmpireTwo/gaze-ghostwriter/issues",
+        "source": "https://github.com/EmpireTwo/gaze-ghostwriter"
+    },
+    "authors": [
+        {
+            "name": "Markus Gottschau",
+            "email": "hello@lordeagle.ie",
+            "homepage": "https://github.com/EmpireTwo"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-dom": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "illuminate/console": "^11.0|^12.0",
+        "illuminate/contracts": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/http": "^11.0|^12.0",
+        "illuminate/notifications": "^11.0|^12.0",
+        "illuminate/queue": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0",
+        "laravel/ai": "^0.4.3",
+        "livewire/livewire": "^3.5",
+        "naoray/gaze-laravel": "dev-main",
+        "symfony/mailer": "^7.0",
+        "symfony/mime": "^7.0",
+        "webklex/laravel-imap": "^6.2"
+    },
+    "require-dev": {
+        "larastan/larastan": "^2.9|^3.0",
+        "laravel/pint": "^1.17",
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpstan/phpstan": "^1.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Empire2\\GazeGhostwriter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Empire2\\GazeGhostwriter\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": ["Empire2\\GazeGhostwriter\\GazeGhostwriterServiceProvider"]
+        }
+    },
+    "scripts": {
+        "test": "pest",
+        "analyse": "phpstan analyse",
+        "format": "pint"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
