@@ -36,7 +36,7 @@ test('resolves draft user prompt with all variables', function () {
         ->toContain('Von: <max@example.com>')
         ->toContain('Hallo Welt')
         ->toContain('[/ORIGINAL_EMAIL]')
-        ->toContain('als Artistfy-Support.')
+        ->toContain('als Support.')
         ->not->toContain('Max')
         ->toContain('referenzierte_chunk_ids');
 });
@@ -66,7 +66,7 @@ test('uses config path when ghostwriter prompts path is configured', function ()
     mkdir($tmpDir, 0755, true);
     file_put_contents($tmpDir.'/draft-system.php', "<?php\nreturn 'Overridden system prompt';");
 
-    config(['ghostwriter.prompts.path' => $tmpDir]);
+    config(['gaze-ghostwriter.prompts.path' => $tmpDir]);
 
     $resolver = new PromptResolver;
     $result = $resolver->resolve('draft-system');

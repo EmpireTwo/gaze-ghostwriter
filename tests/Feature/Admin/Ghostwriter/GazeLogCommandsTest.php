@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-use App\Enums\Roles;
-use App\Features\GhostwriterGaze;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Features\GhostwriterGaze;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\GazeLog;
@@ -29,21 +29,21 @@ use Spatie\Permission\Models\Role;
 use function Pest\Laravel\actingAs;
 
 beforeEach(function (): void {
-    config(['gaze_boundary.enabled' => true]);
+    config(['gaze-ghostwriter.gaze_enabled' => true]);
     Feature::define(GhostwriterGaze::class, fn () => true);
 });
 
 function gazeCommandsAdmin(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
 
 test('gaze_invocations column populates after a draft generation', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Gaze::fake(
         cleanHandler: fn (string $text): GazeSession => new GazeSession(

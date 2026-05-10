@@ -6,30 +6,28 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftsIndex;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 
-uses(RefreshDatabase::class);
 
 function ghostwriterAdminUserForDraftsPagination(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
 
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
 
 test('drafts index resets stale page when url page is beyond last page', function () {
-    config(['ghostwriter.enabled' => true]);
+    config(['gaze-ghostwriter.enabled' => true]);
 
     $message = SupportMailMessage::factory()->create([
         'subject' => 'PaginationUniqueSubjectXyz',

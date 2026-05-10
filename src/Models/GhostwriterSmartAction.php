@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use Empire2\GazeGhostwriter\Database\Factories\GhostwriterSmartActionFactory;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
@@ -22,6 +25,8 @@ use Illuminate\Support\Carbon;
  */
 class GhostwriterSmartAction extends Model
 {
+    use HasFactory;
+
     protected $table = 'ghostwriter_smart_actions';
 
     protected $fillable = [
@@ -37,6 +42,11 @@ class GhostwriterSmartAction extends Model
         return [
             'is_active' => 'boolean',
         ];
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return GhostwriterSmartActionFactory::new();
     }
 
     /**

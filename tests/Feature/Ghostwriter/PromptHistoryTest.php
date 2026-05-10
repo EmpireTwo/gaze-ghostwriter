@@ -6,7 +6,7 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use Domain\Account\Models\User;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Models\GhostwriterPromptHistory;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
@@ -16,7 +16,7 @@ use Laravel\Ai\Ai;
 use Laravel\Ai\Embeddings;
 
 beforeEach(function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 });
 
 test('prompt history is recorded when draft is generated', function () {

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use Empire2\GazeGhostwriter\Database\Factories\SupportMailMessageFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -27,6 +30,8 @@ use Illuminate\Support\Carbon;
  */
 class SupportMailMessage extends Model
 {
+    use HasFactory;
+
     protected $table = 'ghostwriter_support_mail_messages';
 
     protected $fillable = [
@@ -52,6 +57,11 @@ class SupportMailMessage extends Model
             'received_at' => 'datetime',
             'matches_support_address' => 'boolean',
         ];
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return SupportMailMessageFactory::new();
     }
 
     /**

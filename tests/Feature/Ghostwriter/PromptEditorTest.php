@@ -6,8 +6,8 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Enums\AdditionalPromptScope;
 use Empire2\GazeGhostwriter\Livewire\Admin\PromptEditor;
@@ -17,10 +17,10 @@ use Spatie\Permission\Models\Role;
 
 function promptEditorAdmin(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
 
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }

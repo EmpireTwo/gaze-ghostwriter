@@ -8,8 +8,8 @@
 
 declare(strict_types=1);
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\GazeLog;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
@@ -21,9 +21,9 @@ use function Pest\Laravel\actingAs;
 
 function gazeLogAdmin(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
@@ -64,7 +64,7 @@ test('non-admin users receive 403', function () {
 });
 
 test('gate-off state shows the disabled callout instead of the table', function () {
-    config(['gaze_boundary.enabled' => false]);
+    config(['gaze-ghostwriter.gaze_enabled' => false]);
     $admin = gazeLogAdmin();
 
     actingAs($admin);

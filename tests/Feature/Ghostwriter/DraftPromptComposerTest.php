@@ -26,7 +26,7 @@ test('composes user prompt with message details and no rag', function () {
         ->toContain('Betreff: Release verschieben')
         ->toContain('Von: <anna@example.com>')
         ->toContain('Kann ich mein Release noch verschieben?')
-        ->toContain('als Artistfy-Support.')
+        ->toContain('als Support.')
         ->not->toContain('Anna')
         ->toContain('keine passenden historischen Einträge');
 });
@@ -158,7 +158,7 @@ test('compose sends cleaned body without history to prompt template', function (
     expect($result)
         ->toContain('[ORIGINAL_EMAIL]')
         ->toContain('Meine Frage')
-        ->toContain('als Artistfy-Support.')
+        ->toContain('als Support.')
         ->not->toContain('Krishan')
         ->not->toContain('Sender Signatur')
         ->not->toContain('Old reply content here');

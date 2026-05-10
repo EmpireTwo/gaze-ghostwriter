@@ -6,8 +6,8 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Livewire\Admin\GhostwriterSettings;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
@@ -87,9 +87,9 @@ test('normalizeAll skips already clean drafts', function (): void {
 });
 
 test('admin can trigger normalization via settings component', function (): void {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
     $admin = User::factory()->create();
-    $admin->assignRole(Roles::ADMIN);
+    $admin->assignRole("admin");
 
     createDraftWithBody('Test\nText');
 

@@ -6,8 +6,8 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftsIndex;
 use Empire2\GazeGhostwriter\Livewire\Admin\GhostwriterSettings;
 use Empire2\GazeGhostwriter\Support\ConversationPartnerCache;
@@ -23,16 +23,16 @@ beforeEach(function () {
 
 function ghostwriterAdminForConversationFilter(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
 
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
 
 test('admin saves conversation partner email to cache normalized', function () {
-    config(['ghostwriter.imap.only_conversation_with_email' => '']);
+    config(['gaze-ghostwriter.imap.only_conversation_with_email' => '']);
 
     Livewire::actingAs(ghostwriterAdminForConversationFilter())
         ->test(GhostwriterSettings::class)
@@ -54,14 +54,14 @@ test('admin clear removes cache override', function () {
 });
 
 test('effective prefers admin cache over env', function () {
-    config(['ghostwriter.imap.only_conversation_with_email' => 'env@example.com']);
+    config(['gaze-ghostwriter.imap.only_conversation_with_email' => 'env@example.com']);
     ConversationPartnerCache::put('cache@example.com');
 
     expect(ConversationPartnerCache::effective())->toBe('cache@example.com');
 });
 
 test('run inbox sync does nothing harmful when ghostwriter disabled', function () {
-    config(['ghostwriter.enabled' => false]);
+    config(['gaze-ghostwriter.enabled' => false]);
 
     Livewire::actingAs(ghostwriterAdminForConversationFilter())
         ->test(DraftsIndex::class)
@@ -71,10 +71,10 @@ test('run inbox sync does nothing harmful when ghostwriter disabled', function (
 
 test('mail connection test stores imap and smtp diagnostics on settings page', function () {
     config([
-        'ghostwriter.imap.host' => '',
-        'ghostwriter.imap.username' => '',
-        'ghostwriter.smtp.host' => '',
-        'ghostwriter.reply.from_address' => '',
+        'gaze-ghostwriter.imap.host' => '',
+        'gaze-ghostwriter.imap.username' => '',
+        'gaze-ghostwriter.smtp.host' => '',
+        'gaze-ghostwriter.reply.from_address' => '',
     ]);
 
     Livewire::actingAs(ghostwriterAdminForConversationFilter())

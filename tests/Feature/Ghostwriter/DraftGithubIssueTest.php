@@ -6,8 +6,8 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftShow;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftsIndex;
@@ -25,10 +25,10 @@ use Spatie\Permission\Models\Role;
 
 function ghostwriterAdminForGithubIssue(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
 
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
@@ -50,9 +50,9 @@ function ghostwriterDraftForGithubIssue(SupportMailMessage $message): SupportDra
 
 beforeEach(function () {
     config([
-        'ghostwriter.github.repo' => 'Artistfy/Dashboard',
-        'ghostwriter.github.token' => 'ghp_test_token',
-        'ghostwriter.github.labels' => [],
+        'gaze-ghostwriter.github.repo' => 'Artistfy/Dashboard',
+        'gaze-ghostwriter.github.token' => 'ghp_test_token',
+        'gaze-ghostwriter.github.labels' => [],
     ]);
 });
 
@@ -81,7 +81,7 @@ test('github issue service creates issue via http', function () {
 });
 
 test('github issue resolve labels keeps first label and optional selections only', function () {
-    config(['ghostwriter.github.labels' => ['support', 'bug', 'enhancement']]);
+    config(['gaze-ghostwriter.github.labels' => ['support', 'bug', 'enhancement']]);
 
     $service = app(GitHubIssueService::class);
 
@@ -92,7 +92,7 @@ test('github issue resolve labels keeps first label and optional selections only
 });
 
 test('github issue create sends labels when resolved list non-empty', function () {
-    config(['ghostwriter.github.labels' => ['support', 'triage']]);
+    config(['gaze-ghostwriter.github.labels' => ['support', 'triage']]);
 
     Http::fake([
         'https://api.github.com/repos/Artistfy/Dashboard/issues' => Http::response([
@@ -114,8 +114,8 @@ test('github issue create sends labels when resolved list non-empty', function (
 
 test('github issue service throws when not configured', function () {
     config([
-        'ghostwriter.github.repo' => '',
-        'ghostwriter.github.token' => '',
+        'gaze-ghostwriter.github.repo' => '',
+        'gaze-ghostwriter.github.token' => '',
     ]);
 
     $service = app(GitHubIssueService::class);
@@ -170,7 +170,7 @@ test('draft show does not create second github issue when url exists', function 
 
 test('draft show create github issue does nothing when github not configured', function () {
     Http::fake();
-    config(['ghostwriter.github.token' => '']);
+    config(['gaze-ghostwriter.github.token' => '']);
 
     $admin = ghostwriterAdminForGithubIssue();
     $message = SupportMailMessage::factory()->create();
@@ -225,7 +225,7 @@ test('github issue prefill footer uses entwurf id without hash to avoid github i
 });
 
 test('github issue prefill strips mail signature after standard delimiter', function () {
-    config(['gaze_boundary.enabled' => false]);
+    config(['gaze-ghostwriter.gaze_enabled' => false]);
 
     $message = SupportMailMessage::factory()->create([
         'body_text' => "Problem beschrieben mit genug Text davor.\n\n-- \nDr. Evil\nGeheime Adresse 1\n",
@@ -240,7 +240,7 @@ test('github issue prefill strips mail signature after standard delimiter', func
 });
 
 test('github issue prefill heuristic adds thread omitted marker when quoted history is split off', function () {
-    config(['gaze_boundary.enabled' => false]);
+    config(['gaze-ghostwriter.gaze_enabled' => false]);
 
     $history = str_repeat('Old quoted mail line content. ', 5);
     $body = "Current part with enough characters in the latest block.\n\n-----Original Message-----\n".$history;
@@ -326,7 +326,7 @@ test('github issue prefill uses Gaze boundary sanitize on full mail body when ga
 });
 
 test('github issue prefill falls back to heuristic when Gaze gate is off', function () {
-    config(['gaze_boundary.enabled' => false]);
+    config(['gaze-ghostwriter.gaze_enabled' => false]);
 
     $message = SupportMailMessage::factory()->create([
         'body_text' => "Problem beschrieben mit genug Text.\n\n-- \nSignatur Privat\n",

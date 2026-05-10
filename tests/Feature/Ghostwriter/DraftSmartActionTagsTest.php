@@ -9,7 +9,7 @@ use Laravel\Ai\Ai;
 use Laravel\Ai\Embeddings;
 
 test('draft stores smart_action_tags and mentioned_entities from AI response', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 
@@ -42,7 +42,7 @@ test('draft stores smart_action_tags and mentioned_entities from AI response', f
 });
 
 test('draft defaults to empty arrays when AI omits smart action fields', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 

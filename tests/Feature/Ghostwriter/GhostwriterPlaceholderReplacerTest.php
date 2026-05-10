@@ -6,8 +6,8 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use Domain\Account\Models\User;
-use Domain\Billing\Models\Customer;
+use Empire2\GazeGhostwriter\Tests\Fixtures\Customer;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Models\GhostwriterUserData;
 use Empire2\GazeGhostwriter\Support\GhostwriterPlaceholderReplacer;
 

@@ -11,7 +11,7 @@ use Laravel\Ai\Ai;
 use Laravel\Ai\Embeddings;
 
 test('dispatches translation job for english mail', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
     Queue::fake();
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 
@@ -41,7 +41,7 @@ test('dispatches translation job for english mail', function () {
 });
 
 test('does not dispatch translation job for german mail', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
     Queue::fake();
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 
@@ -70,7 +70,7 @@ test('does not dispatch translation job for german mail', function () {
 });
 
 test('persists detected_language on draft creation', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
     Queue::fake();
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 
@@ -97,7 +97,7 @@ test('persists detected_language on draft creation', function () {
 });
 
 test('clears translation fields on regeneration', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
     Queue::fake();
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 

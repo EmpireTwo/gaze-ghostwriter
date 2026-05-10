@@ -9,7 +9,7 @@ use Empire2\GazeGhostwriter\Services\GhostwriterTranslationService;
 use Laravel\Ai\Ai;
 
 test('generates translations for non-german draft', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Ai::fakeAgent(GhostwriterTranslatorAgent::class, [
         ['translated_text' => 'Uebersetzung der Mail'],

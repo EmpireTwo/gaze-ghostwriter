@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use Empire2\GazeGhostwriter\Database\Factories\GhostwriterSettingFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GhostwriterSetting extends Model
 {
+    use HasFactory;
+
     protected $table = 'ghostwriter_settings';
 
     protected $primaryKey = 'key';
@@ -26,6 +31,11 @@ class GhostwriterSetting extends Model
         'key',
         'value',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return GhostwriterSettingFactory::new();
+    }
 
     public static function getValue(string $key): ?string
     {

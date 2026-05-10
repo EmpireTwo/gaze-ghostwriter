@@ -15,10 +15,10 @@ beforeEach(function () {
     Cache::flush();
 
     config([
-        'ghostwriter.enabled' => true,
-        'ghostwriter.imap.host' => 'imap.test',
-        'ghostwriter.imap.username' => 'test@test.com',
-        'ghostwriter.openai.chat_model' => 'gpt-4o-mini',
+        'gaze-ghostwriter.enabled' => true,
+        'gaze-ghostwriter.imap.host' => 'imap.test',
+        'gaze-ghostwriter.imap.username' => 'test@test.com',
+        'gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini',
     ]);
 });
 

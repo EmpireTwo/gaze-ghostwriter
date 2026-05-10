@@ -15,10 +15,10 @@ beforeEach(function (): void {
     Cache::flush();
 
     config([
-        'ghostwriter.enabled' => true,
-        'ghostwriter.imap.host' => 'imap.test',
-        'ghostwriter.imap.username' => 'test@test.com',
-        'gaze_boundary.enabled' => false,
+        'gaze-ghostwriter.enabled' => true,
+        'gaze-ghostwriter.imap.host' => 'imap.test',
+        'gaze-ghostwriter.imap.username' => 'test@test.com',
+        'gaze-ghostwriter.gaze_enabled' => false,
     ]);
 
     Log::spy();
@@ -47,6 +47,6 @@ it('catches GazeDisabledException per-message, marks processing_status=gaze_disa
         ->and($result->draftsCreated)->toBe(0);
 
     Log::shouldHaveReceived('warning')
-        ->withArgs(fn ($name, $ctx) => $name === 'ghostwriter.gaze.disabled_defer'
+        ->withArgs(fn ($name, $ctx) => $name === 'gaze-ghostwriter.gaze.disabled_defer'
             && $ctx['message_id'] === $message->id);
 });

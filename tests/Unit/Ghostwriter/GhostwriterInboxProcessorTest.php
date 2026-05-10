@@ -5,7 +5,7 @@ use Empire2\GazeGhostwriter\Services\GhostwriterInboxProcessor;
 use Empire2\GazeGhostwriter\Services\ImapInboundMailSync;
 
 test('processor does not sync when ghostwriter disabled', function () {
-    config(['ghostwriter.enabled' => false]);
+    config(['gaze-ghostwriter.enabled' => false]);
 
     $imap = $this->createMock(ImapInboundMailSync::class);
     $imap->expects($this->never())->method('sync');
@@ -21,9 +21,9 @@ test('processor does not sync when ghostwriter disabled', function () {
 
 test('processor syncs when enabled and imap configured', function () {
     config([
-        'ghostwriter.enabled' => true,
-        'ghostwriter.imap.host' => 'imap.example.test',
-        'ghostwriter.imap.username' => 'user@test.de',
+        'gaze-ghostwriter.enabled' => true,
+        'gaze-ghostwriter.imap.host' => 'imap.example.test',
+        'gaze-ghostwriter.imap.username' => 'user@test.de',
     ]);
 
     $imap = $this->createMock(ImapInboundMailSync::class);
@@ -40,9 +40,9 @@ test('processor syncs when enabled and imap configured', function () {
 
 test('processor skips sync when imap host or user missing', function () {
     config([
-        'ghostwriter.enabled' => true,
-        'ghostwriter.imap.host' => '',
-        'ghostwriter.imap.username' => 'u',
+        'gaze-ghostwriter.enabled' => true,
+        'gaze-ghostwriter.imap.host' => '',
+        'gaze-ghostwriter.imap.username' => 'u',
     ]);
 
     $imap = $this->createMock(ImapInboundMailSync::class);

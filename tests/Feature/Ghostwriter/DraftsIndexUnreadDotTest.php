@@ -6,24 +6,22 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftsIndex;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 
-uses(RefreshDatabase::class);
 
 function ghostwriterAdminUserForUnreadDot(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
 
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
@@ -46,7 +44,7 @@ function createDraftWithStatus(DraftStatus $status): SupportDraft
 }
 
 test('pending_review draft shows blue unread dot', function () {
-    config(['ghostwriter.enabled' => true]);
+    config(['gaze-ghostwriter.enabled' => true]);
 
     createDraftWithStatus(DraftStatus::PENDING_REVIEW);
 
@@ -56,7 +54,7 @@ test('pending_review draft shows blue unread dot', function () {
 });
 
 test('accepted draft does not show blue unread dot', function () {
-    config(['ghostwriter.enabled' => true]);
+    config(['gaze-ghostwriter.enabled' => true]);
 
     createDraftWithStatus(DraftStatus::ACCEPTED);
 
@@ -66,7 +64,7 @@ test('accepted draft does not show blue unread dot', function () {
 });
 
 test('sent draft does not show blue unread dot', function () {
-    config(['ghostwriter.enabled' => true]);
+    config(['gaze-ghostwriter.enabled' => true]);
 
     createDraftWithStatus(DraftStatus::SENT);
 

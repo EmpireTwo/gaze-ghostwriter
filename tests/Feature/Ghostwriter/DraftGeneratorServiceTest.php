@@ -14,7 +14,7 @@ use Laravel\Ai\Ai;
 use Laravel\Ai\Embeddings;
 
 test('creates draft using faked AI and embeddings', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Embeddings::fake([[[0.1, 0.2, 0.3]], [[0.1, 0.2, 0.3]]]);
 
@@ -54,7 +54,7 @@ test('creates draft using faked AI and embeddings', function () {
 });
 
 test('regenerateFromDraft updates draft in-place keeping same ID', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Embeddings::fake([[[0.1, 0.2, 0.3]], [[0.1, 0.2, 0.3]]]);
 
@@ -97,7 +97,7 @@ test('regenerateFromDraft updates draft in-place keeping same ID', function () {
 });
 
 test('bare greeting inbound skips rag snippets so unrelated chunks do not steer the draft', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 
@@ -134,7 +134,7 @@ test('bare greeting inbound skips rag snippets so unrelated chunks do not steer 
 });
 
 test('system prompt contains numbered strict blocks for each additional prompt', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     GhostwriterAdditionalPrompt::query()->create([
         'scope' => AdditionalPromptScope::GLOBAL,
@@ -185,7 +185,7 @@ test('system prompt contains numbered strict blocks for each additional prompt',
 });
 
 test('entity extraction prompt instructs songs to use release type', function () {
-    config(['ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
+    config(['gaze-ghostwriter.openai.chat_model' => 'gpt-4o-mini']);
 
     Embeddings::fake([[[0.1, 0.2, 0.3]]]);
 

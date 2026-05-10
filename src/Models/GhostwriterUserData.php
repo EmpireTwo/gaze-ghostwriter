@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use Empire2\GazeGhostwriter\Database\Factories\GhostwriterUserDataFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,6 +21,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class GhostwriterUserData extends Model
 {
+    use HasFactory;
+
     protected $table = 'ghostwriter_user_data';
 
     protected $fillable = [
@@ -26,6 +31,11 @@ class GhostwriterUserData extends Model
         'reply_signature',
         'reply_signature_html',
     ];
+
+    protected static function newFactory(): Factory
+    {
+        return GhostwriterUserDataFactory::new();
+    }
 
     /**
      * @return BelongsTo<\Illuminate\Database\Eloquent\Model, $this>

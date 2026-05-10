@@ -20,7 +20,9 @@ uses()->beforeEach(function (): void {
         Schema::create('users', function (Blueprint $table): void {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique();
+            $table->string('password')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

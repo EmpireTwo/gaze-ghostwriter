@@ -15,9 +15,9 @@ beforeEach(function (): void {
     Cache::flush();
 
     config([
-        'ghostwriter.enabled' => true,
-        'ghostwriter.imap.host' => 'imap.test',
-        'ghostwriter.imap.username' => 'test@test.com',
+        'gaze-ghostwriter.enabled' => true,
+        'gaze-ghostwriter.imap.host' => 'imap.test',
+        'gaze-ghostwriter.imap.username' => 'test@test.com',
     ]);
 
     Log::spy();
@@ -46,6 +46,6 @@ it('catches GazeUnknownTokenException per-message, marks processing_status=gaze_
         ->and($result->draftsCreated)->toBe(0);
 
     Log::shouldHaveReceived('error')
-        ->withArgs(fn ($name, $ctx) => $name === 'ghostwriter.gaze.restore_exhausted'
+        ->withArgs(fn ($name, $ctx) => $name === 'gaze-ghostwriter.gaze.restore_exhausted'
             && $ctx['message_id'] === $message->id);
 });

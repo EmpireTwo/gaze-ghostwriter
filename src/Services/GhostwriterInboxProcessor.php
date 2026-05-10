@@ -67,18 +67,18 @@ final class GhostwriterInboxProcessor
                 }
             } catch (GazeDisabledException) {
                 $message->update(['processing_status' => 'gaze_disabled']);
-                Log::warning('ghostwriter.gaze.disabled_defer', [
+                Log::warning('gaze-ghostwriter.gaze.disabled_defer', [
                     'message_id' => $message->id,
                 ]);
             } catch (GazeUnknownTokenException $e) {
                 $message->update(['processing_status' => 'gaze_restore_exhausted']);
-                Log::error('ghostwriter.gaze.restore_exhausted', [
+                Log::error('gaze-ghostwriter.gaze.restore_exhausted', [
                     'message_id' => $message->id,
                     'exception' => $e->getMessage(),
                 ]);
             } catch (NonRetryable $e) {
                 $message->update(['processing_status' => 'gaze_nonretryable']);
-                Log::error('ghostwriter.gaze.nonretryable', [
+                Log::error('gaze-ghostwriter.gaze.nonretryable', [
                     'message_id' => $message->id,
                     'exception' => $e::class,
                     'reason' => $e->getMessage(),

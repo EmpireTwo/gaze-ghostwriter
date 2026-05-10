@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use Empire2\GazeGhostwriter\Database\Factories\GhostwriterPromptHistoryFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -31,6 +34,8 @@ use Illuminate\Support\Carbon;
  */
 class GhostwriterPromptHistory extends Model
 {
+    use HasFactory;
+
     protected $table = 'ghostwriter_prompt_history';
 
     protected $fillable = [
@@ -57,6 +62,11 @@ class GhostwriterPromptHistory extends Model
             'is_regeneration' => 'boolean',
             'duration_ms' => 'integer',
         ];
+    }
+
+    protected static function newFactory(): Factory
+    {
+        return GhostwriterPromptHistoryFactory::new();
     }
 
     public function totalTokens(): int

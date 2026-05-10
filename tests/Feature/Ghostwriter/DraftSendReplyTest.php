@@ -6,8 +6,8 @@
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use App\Enums\Roles;
-use Domain\Account\Models\User;
+// Replaced host App\Enums\Roles with literal "admin" string
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftShow;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftsIndex;
@@ -19,22 +19,22 @@ use Spatie\Permission\Models\Role;
 
 function ghostwriterAdminForSendReply(): User
 {
-    Role::findOrCreate(Roles::ADMIN->value);
+    Role::findOrCreate("admin");
 
     $user = User::factory()->create();
-    $user->assignRole(Roles::ADMIN);
+    $user->assignRole("admin");
 
     return $user;
 }
 
 beforeEach(function () {
     config([
-        'ghostwriter.smtp.driver' => 'null',
-        'ghostwriter.smtp.host' => '127.0.0.1',
-        'ghostwriter.smtp.port' => 1025,
-        'ghostwriter.smtp.encryption' => 'none',
-        'ghostwriter.reply.from_address' => 'support@example.test',
-        'ghostwriter.reply.from_name' => 'Support',
+        'gaze-ghostwriter.smtp.driver' => 'null',
+        'gaze-ghostwriter.smtp.host' => '127.0.0.1',
+        'gaze-ghostwriter.smtp.port' => 1025,
+        'gaze-ghostwriter.smtp.encryption' => 'none',
+        'gaze-ghostwriter.reply.from_address' => 'support@example.test',
+        'gaze-ghostwriter.reply.from_name' => 'Support',
     ]);
 });
 
