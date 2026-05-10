@@ -11,15 +11,28 @@ AI-assisted support-mail ghostwriter for Laravel — IMAP inbound, RAG-augmented
 ## Requirements
 
 - PHP `^8.2`
-- Laravel `^11.0 || ^12.0`
+- Laravel `^12.0` (`laravel/ai` requires Laravel 12+)
 - Livewire `^3.5`
 - `naoray/gaze-laravel` (auto-installed)
 - `laravel/ai` provider configured in the host (`config/ai.php` keys `default` and `default_for_embeddings`)
 
 ## Install
 
+`naoray/gaze-laravel` and `empire2/gaze-ghostwriter` are not yet on Packagist, so add VCS repositories to your host app's `composer.json` first:
+
+```json
+"repositories": [
+    { "type": "vcs", "url": "https://github.com/EmpireTwo/gaze-laravel.git" },
+    { "type": "vcs", "url": "https://github.com/EmpireTwo/gaze-ghostwriter.git" }
+],
+"minimum-stability": "dev",
+"prefer-stable": true
+```
+
+Then:
+
 ```bash
-composer require empire2/gaze-ghostwriter
+composer require empire2/gaze-ghostwriter:dev-main
 
 php artisan vendor:publish --tag=gaze-ghostwriter-config
 php artisan vendor:publish --tag=gaze-ghostwriter-migrations
