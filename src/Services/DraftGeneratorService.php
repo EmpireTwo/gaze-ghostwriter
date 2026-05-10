@@ -8,6 +8,7 @@ use Carbon\CarbonInterface;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Ai\Contracts\GuardedAgentRunnerContract;
 use Empire2\GazeGhostwriter\Ai\Exceptions\GazeDisabledException;
+use Empire2\GazeGhostwriter\Ai\Sanitizer;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Jobs\GenerateDraftTranslationsJob;
 use Empire2\GazeGhostwriter\Models\GhostwriterAdditionalPrompt;
@@ -32,6 +33,7 @@ class DraftGeneratorService
     public function __construct(
         private readonly DraftPromptComposer $promptComposer,
         private readonly GuardedAgentRunnerContract $runner,
+        private readonly Sanitizer $sanitizer,
     ) {}
 
     public function generateForMessage(SupportMailMessage $message): ?SupportDraft
@@ -144,15 +146,27 @@ class DraftGeneratorService
         $retrieved = [];
         if (! $withholdRag) {
             $queryVector = null;
-            try {
-                $queryVector = Embeddings::for([$queryText])->generate(
-                    provider: config('ai.default_for_embeddings'),
-                )->first();
-            } catch (Throwable $e) {
-                Log::warning('Ghostwriter query embedding failed', [
+
+            // Fail-closed: route the RAG query text through Gaze::clean()
+            // before it reaches the embedding provider. If sanitize returns
+            // null (boundary off) or empty, SKIP embedding — better to lose
+            // RAG recall than leak PII into the embedding provider.
+            $sanitizedQuery = $this->sanitizer->sanitize($queryText);
+            if ($sanitizedQuery === null || trim($sanitizedQuery) === '') {
+                Log::warning('Ghostwriter query embedding skipped (boundary off or sanitize empty)', [
                     'message_id' => $message->id,
-                    'error' => $e->getMessage(),
                 ]);
+            } else {
+                try {
+                    $queryVector = Embeddings::for([$sanitizedQuery])->generate(
+                        provider: config('ai.default_for_embeddings'),
+                    )->first();
+                } catch (Throwable $e) {
+                    Log::warning('Ghostwriter query embedding failed', [
+                        'message_id' => $message->id,
+                        'error' => $e->getMessage(),
+                    ]);
+                }
             }
 
             $topK = (int) config('gaze-ghostwriter.rag.top_k', 5);

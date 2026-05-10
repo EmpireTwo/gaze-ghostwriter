@@ -152,6 +152,38 @@ $draft   = $service->generateForMessage(SupportMailMessage::find($id));
 
 The `GuardedAgentRunner` runs Gaze around the LLM call. With `GHOSTWRITER_GAZE_ENABLED=true` the prompt is sanitized via `gaze clean`, the model only sees redacted text, and every string in the structured response is restored before persistence. With `GHOSTWRITER_GAZE_ENABLED=false` the runner short-circuits with `GazeDisabledException` — there is no bypass branch.
 
+## Privacy boundaries
+
+This package routes every text prompt and structured LLM response through
+the [`empiretwo/gaze-laravel`](https://packagist.org/packages/empiretwo/gaze-laravel)
+boundary. With `gaze_enabled=true`, prompts are passed through `gaze clean`
+before they reach the model, and the `restore` step puts placeholder tokens
+back into the model output before persistence.
+
+**Image attachments are NOT redacted.** Gaze is a text-only boundary.
+When a ticket / draft includes screenshots or other image attachments, they
+are sent to the configured AI provider as-is. Treat image upload as
+out-of-band PII exposure and disable image attachments if your compliance
+posture forbids it.
+
+**Embeddings** are sent through `Gaze::clean()` only (no restore — the
+vectors are stored, not shown back to the user). When the boundary is off,
+the embedding path is skipped entirely (fail-closed). Both the per-chunk
+indexing path (`ChunkEmbeddingService`) and the per-query RAG retrieval
+path (`DraftGeneratorService`) follow this rule — RAG recall degrades
+rather than leaks PII.
+
+**GitHub issue export** runs the inbound mail body through the same
+`Sanitizer` (`Gaze::clean()` only). When the boundary is off, the host's
+own heuristics take over (or the export is skipped depending on the
+`ai_sanitize_mail_body` flag).
+
+**Outbound SMTP** sends the agent-restored draft text. The draft body
+persisted in `support_drafts.draft_body` is the post-`Gaze::restore()`
+string; SMTP transmits whatever the human reviewer (or the agent) produced
+after the restore step. There is no second redaction pass before send —
+review the draft before clicking send.
+
 ## Console commands
 
 ```bash
