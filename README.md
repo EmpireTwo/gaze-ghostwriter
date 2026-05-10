@@ -4,7 +4,7 @@ AI-assisted support-mail ghostwriter for Laravel — IMAP inbound, RAG-augmented
 
 [![CI](https://github.com/EmpireTwo/gaze-ghostwriter/actions/workflows/ci.yml/badge.svg)](https://github.com/EmpireTwo/gaze-ghostwriter/actions/workflows/ci.yml)
 [![Latest Version](https://img.shields.io/packagist/v/empire2/gaze-ghostwriter.svg)](https://packagist.org/packages/empire2/gaze-ghostwriter)
-[![License](https://img.shields.io/packagist/l/empire2/gaze-ghostwriter.svg)](LICENSE)
+[![License](https://img.shields.io/github/license/EmpireTwo/gaze-ghostwriter.svg)](LICENSE)
 
 `gaze-ghostwriter` watches a support inbox, generates structured draft replies through the Laravel AI agent contract, and persists every prompt + response so you can review, edit, send (SMTP), or escalate to GitHub. Every outbound LLM call goes through a single boundary (`GuardedAgentRunner`) that runs `gaze clean` / `gaze restore` around the model invocation — placeholder tokens never leak into stored fields.
 
