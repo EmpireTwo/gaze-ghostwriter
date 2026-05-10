@@ -12,7 +12,7 @@ use Livewire\Component;
  * Minimal toast component that listens for `toast` Livewire events
  * dispatched from the package's admin pages.
  *
- * Usage: drop `<livewire:gaze-ghostwriter::toast />` into your layout, or
+ * Usage: drop `<livewire:gaze-ghostwriter.toast />` into your layout, or
  * include the bundled view (`resources/views/toast.blade.php`) directly.
  *
  * Hosts using Flux UI or another toast system can ignore this component

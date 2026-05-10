@@ -12,7 +12,7 @@ AI-assisted support-mail ghostwriter for Laravel — IMAP inbound, RAG-augmented
 
 - PHP `^8.2`
 - Laravel `^12.0` (`laravel/ai` requires Laravel 12+)
-- Livewire `^3.5`
+- Livewire `^4.0`
 - `empiretwo/gaze-laravel` (auto-installed)
 - `laravel/ai` provider configured in the host (`config/ai.php` keys `default` and `default_for_embeddings`)
 
@@ -117,7 +117,7 @@ Replace the layout used by the bundled Livewire admin pages:
 
 The Livewire components dispatch a `toast` event with `type`, `message`, `heading`, and `duration`. You can either:
 
-1. Use the bundled minimal toast component — drop `<livewire:gaze-ghostwriter::toast />` into your layout. Tailwind utility classes only.
+1. Use the bundled minimal toast component — drop `<livewire:gaze-ghostwriter.toast />` into your layout. Tailwind utility classes only.
 2. Replace it with your own listener (e.g. Flux UI, Filament). The dispatched event is fully data — the package never imports a host-specific class.
 
 ### Customer / ticket integration

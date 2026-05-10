@@ -29,7 +29,7 @@
         "illuminate/queue": "^12.0",
         "illuminate/support": "^12.0",
         "laravel/ai": "^0.4.3",
-        "livewire/livewire": "^3.5",
+        "livewire/livewire": "^4.0",
         "empiretwo/gaze-laravel": "^0.6",
         "symfony/mailer": "^7.0",
         "symfony/mime": "^7.0",

@@ -74,13 +74,13 @@ class GazeGhostwriterServiceProvider extends ServiceProvider
 
     private function registerLivewireComponents(): void
     {
-        Livewire::component('gaze-ghostwriter::drafts-index', DraftsIndex::class);
-        Livewire::component('gaze-ghostwriter::draft-show', DraftShow::class);
-        Livewire::component('gaze-ghostwriter::settings', GhostwriterSettings::class);
-        Livewire::component('gaze-ghostwriter::prompt-editor', PromptEditor::class);
-        Livewire::component('gaze-ghostwriter::smart-actions', SmartActionsManager::class);
-        Livewire::component('gaze-ghostwriter::prompt-history', PromptHistory::class);
-        Livewire::component('gaze-ghostwriter::gaze-log', GazeLog::class);
-        Livewire::component('gaze-ghostwriter::toast', Toast::class);
+        Livewire::component('gaze-ghostwriter.drafts-index', DraftsIndex::class);
+        Livewire::component('gaze-ghostwriter.draft-show', DraftShow::class);
+        Livewire::component('gaze-ghostwriter.settings', GhostwriterSettings::class);
+        Livewire::component('gaze-ghostwriter.prompt-editor', PromptEditor::class);
+        Livewire::component('gaze-ghostwriter.smart-actions', SmartActionsManager::class);
+        Livewire::component('gaze-ghostwriter.prompt-history', PromptHistory::class);
+        Livewire::component('gaze-ghostwriter.gaze-log', GazeLog::class);
+        Livewire::component('gaze-ghostwriter.toast', Toast::class);
     }
 }
