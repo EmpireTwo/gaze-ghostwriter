@@ -68,6 +68,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
+            "empiretwo/gaze-laravel": true,
             "pestphp/pest-plugin": true
         }
     }

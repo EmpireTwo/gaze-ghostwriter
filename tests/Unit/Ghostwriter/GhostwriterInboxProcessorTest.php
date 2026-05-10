@@ -3,9 +3,6 @@
 use Empire2\GazeGhostwriter\Services\DraftGeneratorService;
 use Empire2\GazeGhostwriter\Services\GhostwriterInboxProcessor;
 use Empire2\GazeGhostwriter\Services\ImapInboundMailSync;
-use Tests\TestCase;
-
-uses(TestCase::class);
 
 test('processor does not sync when ghostwriter disabled', function () {
     config(['ghostwriter.enabled' => false]);

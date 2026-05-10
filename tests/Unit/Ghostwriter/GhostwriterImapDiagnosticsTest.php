@@ -1,9 +1,6 @@
 <?php
 
 use Empire2\GazeGhostwriter\Services\GhostwriterImapDiagnostics;
-use Tests\TestCase;
-
-uses(TestCase::class);
 
 test('diagnostics fails when host or username missing', function () {
     config([
