@@ -30,7 +30,7 @@
         "illuminate/support": "^12.0",
         "laravel/ai": "^0.4.3",
         "livewire/livewire": "^3.5",
-        "naoray/gaze-laravel": "dev-main",
+        "empiretwo/gaze-laravel": "^0.6",
         "symfony/mailer": "^7.0",
         "symfony/mime": "^7.0",
         "webklex/laravel-imap": "^6.2"
@@ -43,12 +43,6 @@
         "pestphp/pest-plugin-laravel": "^3.0",
         "phpstan/phpstan": "^2.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/EmpireTwo/gaze-laravel.git"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Empire2\\GazeGhostwriter\\": "src/"
@@ -69,7 +63,7 @@
         "analyse": "phpstan analyse",
         "format": "pint"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "config": {
         "sort-packages": true,

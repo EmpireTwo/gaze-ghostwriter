@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Initial extraction from `EmpireTwo/Dashboard`.
 - IMAP inbound mail sync (Webklex) with conversation-partner filter.
 - RAG-augmented draft generation via Laravel AI agents (`GhostwriterDraftAgent`).
-- PII-safe LLM calls through `naoray/gaze-laravel` (clean / restore around every prompt).
+- PII-safe LLM calls through `empiretwo/gaze-laravel` (clean / restore around every prompt).
 - Translation pipeline for non-German customer mails (`GhostwriterTranslatorAgent`).
 - Smart Actions tagging + admin manager.
 - Per-user and global additional prompt rules with prompt history + token cost tracking.
