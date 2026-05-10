@@ -11,9 +11,13 @@
     },
     "authors": [
         {
-            "name": "Markus Gottschau",
+            "name": "Lord Eagle",
             "email": "hello@lordeagle.ie",
-            "homepage": "https://github.com/EmpireTwo"
+            "homepage": "https://github.com/lord-eagle"
+        },
+        {
+            "name": "The gaze-ghostwriter Contributors",
+            "homepage": "https://github.com/EmpireTwo/gaze-ghostwriter/graphs/contributors"
         }
     ],
     "require": {
