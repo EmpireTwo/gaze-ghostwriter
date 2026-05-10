@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
+use Empire2\GazeGhostwriter\Ai\Exceptions\GazeDisabledException;
 use Empire2\GazeGhostwriter\Enums\MailChunkRole;
 use Empire2\GazeGhostwriter\Models\SupportMailChunk;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
@@ -118,7 +119,7 @@ test('draft generator skips embedding entirely when gaze boundary is off', funct
     // without a fake response.') which is NOT a GazeDisabledException and
     // the toThrow matcher below would fail.
     expect(fn () => app(DraftGeneratorService::class)->generateForMessage($message))
-        ->toThrow(\Empire2\GazeGhostwriter\Ai\Exceptions\GazeDisabledException::class);
+        ->toThrow(GazeDisabledException::class);
 
     Gaze::assertNothingCleaned();
 });

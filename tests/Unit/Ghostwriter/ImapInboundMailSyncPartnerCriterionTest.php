@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Services\ImapInboundMailSync;
 
 test('partner IMAP criterion uses nested binary OR form', function () {

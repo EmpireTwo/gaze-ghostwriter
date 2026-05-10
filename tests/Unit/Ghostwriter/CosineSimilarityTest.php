@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\CosineSimilarity;
 
 test('identical vectors score one', function () {

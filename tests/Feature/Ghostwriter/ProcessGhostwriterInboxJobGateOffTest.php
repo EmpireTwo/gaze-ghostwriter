@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Empire2\GazeGhostwriter\Ai\Exceptions\GazeDisabledException;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
 use Empire2\GazeGhostwriter\Services\DraftGeneratorService;
 use Empire2\GazeGhostwriter\Services\GhostwriterInboxProcessor;
@@ -9,7 +10,6 @@ use Empire2\GazeGhostwriter\Services\ImapInboundMailSync;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Mockery\MockInterface;
-use Empire2\GazeGhostwriter\Ai\Exceptions\GazeDisabledException;
 
 beforeEach(function (): void {
     Cache::flush();

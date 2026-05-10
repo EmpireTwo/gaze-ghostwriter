@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\User;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Agents\GhostwriterTranslatorAgent;
 
@@ -43,7 +44,7 @@ return [
     | route_prefix: URL prefix the package mounts under.
     */
 
-    'user_model' => env('GHOSTWRITER_USER_MODEL', \App\Models\User::class),
+    'user_model' => env('GHOSTWRITER_USER_MODEL', User::class),
 
     'layout' => env('GHOSTWRITER_LAYOUT', 'components.layouts.app'),
 

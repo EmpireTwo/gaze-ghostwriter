@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;

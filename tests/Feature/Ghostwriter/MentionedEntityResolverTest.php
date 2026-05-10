@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // GHOSTWRITER-TODO (host-fixture coupling): These tests reference
 // host-domain models (Customer, Artist, Release) that the package
 // does not own. The MentionedEntityResolver in src/ is intentionally

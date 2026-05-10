@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Empire2\GazeGhostwriter\Concerns;
 
 use Empire2\GazeGhostwriter\Models\GhostwriterUserData;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * load the user's signing name and reply signatures without coupling to a
  * specific User class.
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 trait HasGhostwriterUserData
 {

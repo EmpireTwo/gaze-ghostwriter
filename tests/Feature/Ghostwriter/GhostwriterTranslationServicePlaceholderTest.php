@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Agents\GhostwriterTranslatorAgent;
 use Empire2\GazeGhostwriter\Services\GhostwriterTranslationService;
 use Laravel\Ai\Ai;

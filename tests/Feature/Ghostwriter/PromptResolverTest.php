@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Prompts\PromptResolver;
 
 test('resolves draft system prompt with locale variable', function () {

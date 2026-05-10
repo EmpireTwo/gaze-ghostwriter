@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Services\GhostwriterSmtpDiagnostics;
 
 test('smtp diagnostics reports incomplete when host or from missing', function () {

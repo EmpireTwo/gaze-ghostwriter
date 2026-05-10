@@ -6,3 +6,25 @@ parameters:
         - src
     tmpDir: .phpstan.cache
     treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Host class referenced via config defaults (config('gaze-ghostwriter.user_model'))
+        # — exists in the host app at runtime, not in the package's own tree.
+        - '#Class App\\Models\\User not found#'
+        # Authenticatable contract refinement — the package intentionally calls
+        # method_exists() on the resolved host model because the contract does
+        # not promise loadMissing()/getAttribute().
+        -
+            message: '#always evaluate to true#'
+            path: src/Support/GhostwriterPlaceholderReplacer.php
+        -
+            message: '#always evaluate to true#'
+            path: src/Services/SupportDraftReplySender.php
+        # Trait is used by host User model, not by package internals.
+        -
+            message: '#Trait Empire2\\GazeGhostwriter\\Concerns\\HasGhostwriterUserData is used zero times#'
+            path: src/Concerns/HasGhostwriterUserData.php
+        # Livewire admin components return namespaced views by string —
+        # larastan's view-string-strict mode rejects these. The view paths
+        # are resolved at runtime via the package's view namespace.
+        - '#Parameter \#1 \$view of function view expects view-string\|null, string given#'

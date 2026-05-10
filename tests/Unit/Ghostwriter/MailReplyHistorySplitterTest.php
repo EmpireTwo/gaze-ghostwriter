@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\MailReplyHistorySplitter;
 
 test('splits on English On wrote marker', function () {

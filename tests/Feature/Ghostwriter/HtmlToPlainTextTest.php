@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\HtmlToPlainText;
 
 it('strips style tags and their content', function (): void {

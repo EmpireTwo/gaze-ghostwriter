@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 // GHOSTWRITER-TODO (host-fixture coupling): This test still references
 // host-specific factories / models (User, Customer, Artist, Release, Ticket,
 // or App\Features\GhostwriterGaze). It will not run unmodified inside the
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use Empire2\GazeGhostwriter\Tests\Fixtures\Customer;
-use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Models\GhostwriterUserData;
 use Empire2\GazeGhostwriter\Support\GhostwriterPlaceholderReplacer;
+use Empire2\GazeGhostwriter\Tests\Fixtures\Customer;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 
 test('replacer uses signing_name from ghostwriter user data', function () {
     $user = User::factory()->create(['name' => 'X']);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use App\Models\User;
 use Empire2\GazeGhostwriter\Database\Factories\GhostwriterAdditionalPromptFactory;
 use Empire2\GazeGhostwriter\Enums\AdditionalPromptScope;
 use Illuminate\Database\Eloquent\Collection;
@@ -53,12 +54,12 @@ class GhostwriterAdditionalPrompt extends Model
     }
 
     /**
-     * @return BelongsTo<\Illuminate\Database\Eloquent\Model, $this>
+     * @return BelongsTo<Model, $this>
      */
     public function user(): BelongsTo
     {
-        /** @var class-string<\Illuminate\Database\Eloquent\Model> $userModel */
-        $userModel = (string) config('gaze-ghostwriter.user_model', \App\Models\User::class);
+        /** @var class-string<Model> $userModel */
+        $userModel = (string) config('gaze-ghostwriter.user_model', User::class);
 
         return $this->belongsTo($userModel, 'user_id');
     }

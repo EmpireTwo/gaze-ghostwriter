@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\PlaceholderSentinel;
 
 test('protect replaces bracketed tokens with sentinels and restore brings them back', function () {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // GHOSTWRITER-TODO (host-fixture coupling): The SmartActionCustomerResolver
 // in src/ is intentionally a stub that returns null — hosts replace it
 // with their own resolution strategy. These tests originally verified the

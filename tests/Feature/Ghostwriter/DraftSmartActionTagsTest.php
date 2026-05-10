@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Models\GhostwriterSmartAction;
 use Empire2\GazeGhostwriter\Models\SupportDraft;

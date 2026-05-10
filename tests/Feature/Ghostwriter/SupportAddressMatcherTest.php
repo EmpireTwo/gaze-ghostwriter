@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\SupportAddressMatcher;
 
 test('matches exact address among recipients', function () {

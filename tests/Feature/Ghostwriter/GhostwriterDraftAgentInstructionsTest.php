@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 
 test('ghostwriter draft agent instructions require proportional brevity for short mails', function () {

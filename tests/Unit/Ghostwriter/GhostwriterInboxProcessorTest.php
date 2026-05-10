@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Services\DraftGeneratorService;
 use Empire2\GazeGhostwriter\Services\GhostwriterInboxProcessor;
 use Empire2\GazeGhostwriter\Services\ImapInboundMailSync;

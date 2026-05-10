@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\MailSignatureTrimmer;
 
 test('mail signature trimmer cuts after dash dash delimiter line', function () {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
 use Empire2\GazeGhostwriter\Prompts\PromptResolver;
 use Empire2\GazeGhostwriter\Services\DraftPromptComposer;

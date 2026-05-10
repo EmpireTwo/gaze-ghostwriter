@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // GHOSTWRITER-TODO (host-fixture coupling): This test still references
 // host-specific factories / models (User, Customer, Artist, Release, Ticket,
 // or App\Features\GhostwriterGaze). It will not run unmodified inside the
@@ -7,13 +9,13 @@
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
 // Replaced host App\Enums\Roles with literal "admin" string
-use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\DraftShow;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
 use Empire2\GazeGhostwriter\Services\DraftGeneratorService;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Laravel\Ai\Ai;
 use Laravel\Ai\Embeddings;
 use Livewire\Livewire;
@@ -21,10 +23,10 @@ use Spatie\Permission\Models\Role;
 
 function ghostwriterAdmin(): User
 {
-    Role::findOrCreate("admin");
+    Role::findOrCreate('admin');
 
     $user = User::factory()->create();
-    $user->assignRole("admin");
+    $user->assignRole('admin');
 
     return $user;
 }

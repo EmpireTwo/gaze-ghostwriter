@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Support\CustomerMailReplyLanguageHint;
 
 test('buildPromptDirective requires English for clear English support mail', function () {

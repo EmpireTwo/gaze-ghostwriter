@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Services;
 
+use App\Models\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Support\GhostwriterPlaceholderReplacer;
@@ -108,7 +109,7 @@ final class SupportDraftReplySender
     private function resolveSender(int $userId): Authenticatable
     {
         /** @var class-string<Model> $userModel */
-        $userModel = (string) config('gaze-ghostwriter.user_model', \App\Models\User::class);
+        $userModel = (string) config('gaze-ghostwriter.user_model', User::class);
 
         /** @var Model|Authenticatable $sender */
         $sender = $userModel::query()->findOrFail($userId);

@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 // GHOSTWRITER-TODO (host-fixture coupling): This test still references
 // host-specific factories / models (User, Customer, Artist, Release, Ticket,
 // or App\Features\GhostwriterGaze). It will not run unmodified inside the
 // package test suite. To enable: provide local stand-ins (e.g. an Eloquent
 // `User` model + factory under `tests/Fixtures`) and replace references below.
 
-use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Agents\GhostwriterDraftAgent;
 use Empire2\GazeGhostwriter\Models\GhostwriterPromptHistory;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
 use Empire2\GazeGhostwriter\Services\DraftGeneratorService;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Laravel\Ai\Ai;
 use Laravel\Ai\Embeddings;
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Models;
 
+use App\Models\User;
 use Empire2\GazeGhostwriter\Database\Factories\SupportDraftFactory;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -108,23 +109,23 @@ class SupportDraft extends Model
      * at runtime via `config('gaze-ghostwriter.user_model')` so the package
      * does not depend on a specific User class.
      *
-     * @return BelongsTo<\Illuminate\Database\Eloquent\Model, $this>
+     * @return BelongsTo<Model, $this>
      */
     public function ratedByUser(): BelongsTo
     {
-        /** @var class-string<\Illuminate\Database\Eloquent\Model> $userModel */
-        $userModel = (string) config('gaze-ghostwriter.user_model', \App\Models\User::class);
+        /** @var class-string<Model> $userModel */
+        $userModel = (string) config('gaze-ghostwriter.user_model', User::class);
 
         return $this->belongsTo($userModel, 'rated_by_user_id');
     }
 
     /**
-     * @return BelongsTo<\Illuminate\Database\Eloquent\Model, $this>
+     * @return BelongsTo<Model, $this>
      */
     public function sentByUser(): BelongsTo
     {
-        /** @var class-string<\Illuminate\Database\Eloquent\Model> $userModel */
-        $userModel = (string) config('gaze-ghostwriter.user_model', \App\Models\User::class);
+        /** @var class-string<Model> $userModel */
+        $userModel = (string) config('gaze-ghostwriter.user_model', User::class);
 
         return $this->belongsTo($userModel, 'sent_by_user_id');
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Empire2\GazeGhostwriter\Services\GhostwriterImapDiagnostics;
 
 test('diagnostics fails when host or username missing', function () {

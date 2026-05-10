@@ -9,11 +9,11 @@
 declare(strict_types=1);
 
 // Replaced host App\Enums\Roles with literal "admin" string
-use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Empire2\GazeGhostwriter\Enums\DraftStatus;
 use Empire2\GazeGhostwriter\Livewire\Admin\GazeLog;
 use Empire2\GazeGhostwriter\Models\SupportDraft;
 use Empire2\GazeGhostwriter\Models\SupportMailMessage;
+use Empire2\GazeGhostwriter\Tests\Fixtures\User;
 use Livewire\Livewire;
 use Spatie\Permission\Models\Role;
 
@@ -21,9 +21,9 @@ use function Pest\Laravel\actingAs;
 
 function gazeLogAdmin(): User
 {
-    Role::findOrCreate("admin");
+    Role::findOrCreate('admin');
     $user = User::factory()->create();
-    $user->assignRole("admin");
+    $user->assignRole('admin');
 
     return $user;
 }

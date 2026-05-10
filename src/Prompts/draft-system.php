@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return <<<'TXT'
 Du bist Ghostwriter 3000, ein Support-Schreibassistent.
 

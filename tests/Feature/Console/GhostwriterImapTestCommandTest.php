@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Console\Command;
 
 it('fails when imap host or username is missing', function () {
