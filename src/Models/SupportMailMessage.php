@@ -25,6 +25,11 @@ use Illuminate\Support\Carbon;
  * @property Carbon $received_at
  * @property bool $matches_support_address
  * @property string|null $processing_status
+ * @property string $channel
+ * @property int|null $client_user_id
+ * @property array<string, mixed>|null $client_context
+ * @property string|null $source_url
+ * @property string|null $topic
  *
  * @mixin \Eloquent
  */
@@ -47,6 +52,11 @@ class SupportMailMessage extends Model
         'received_at',
         'matches_support_address',
         'processing_status',
+        'channel',
+        'client_user_id',
+        'client_context',
+        'source_url',
+        'topic',
     ];
 
     protected function casts(): array
@@ -56,6 +66,8 @@ class SupportMailMessage extends Model
             'cc_emails' => 'array',
             'received_at' => 'datetime',
             'matches_support_address' => 'boolean',
+            'client_context' => 'array',
+            'client_user_id' => 'integer',
         ];
     }
 
