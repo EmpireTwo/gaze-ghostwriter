@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Empire2\GazeGhostwriter\Livewire\Admin;
 
+use Empire2\GazeGhostwriter\Models\GhostwriterSetting;
 use Empire2\GazeGhostwriter\Services\GhostwriterImapDiagnostics;
 use Empire2\GazeGhostwriter\Services\GhostwriterSmtpDiagnostics;
 use Empire2\GazeGhostwriter\Support\ConversationPartnerCache;
 use Empire2\GazeGhostwriter\Support\DraftBodyNormalizer;
+use Empire2\GazeGhostwriter\Support\FeedbackSettings;
 use Empire2\GazeGhostwriter\Support\GhostwriterSchedulerPause;
 use Empire2\GazeGhostwriter\Support\HtmlSignatureSanitizer;
 use Illuminate\Contracts\View\View;
@@ -34,11 +36,31 @@ class GhostwriterSettings extends Component
 
     public bool $schedulerPaused = false;
 
+    public bool $feedbackEnabled = false;
+
+    public bool $feedbackRequireSubject = false;
+
+    public bool $feedbackRequireEmailForGuests = true;
+
+    /** @var list<string> */
+    public array $feedbackTopics = [];
+
+    public int $feedbackRateLimitPerMinute = 5;
+
+    public string $newFeedbackTopic = '';
+
     public function mount(): void
     {
         $this->syncConversationPartnerInputFromEffective();
         $this->syncGhostwriterReplyProfileFromUser();
         $this->schedulerPaused = GhostwriterSchedulerPause::isPaused();
+
+        $feedbackSettings = FeedbackSettings::all();
+        $this->feedbackEnabled = $feedbackSettings->enabled;
+        $this->feedbackRequireSubject = $feedbackSettings->requireSubject;
+        $this->feedbackRequireEmailForGuests = $feedbackSettings->requireEmailForGuests;
+        $this->feedbackTopics = $feedbackSettings->topics;
+        $this->feedbackRateLimitPerMinute = $feedbackSettings->rateLimitPerMinute;
     }
 
     public function toggleSchedulerPause(): void
@@ -87,6 +109,41 @@ class GhostwriterSettings extends Component
         );
 
         $this->toast('success', 'Antwort-Profil für Ghostwriter gespeichert.', 'Ghostwriter');
+    }
+
+    public function saveFeedbackSettings(): void
+    {
+        $this->validate([
+            'feedbackRateLimitPerMinute' => ['integer', 'min:0', 'max:9999'],
+        ]);
+
+        GhostwriterSetting::setValue('feedback_enabled', $this->feedbackEnabled ? 'true' : 'false');
+        GhostwriterSetting::setValue('feedback_require_subject', $this->feedbackRequireSubject ? 'true' : 'false');
+        GhostwriterSetting::setValue('feedback_require_email_for_guests', $this->feedbackRequireEmailForGuests ? 'true' : 'false');
+        GhostwriterSetting::setValue('feedback_topics', json_encode(array_values($this->feedbackTopics)));
+        GhostwriterSetting::setValue('feedback_rate_limit_per_minute', (string) max(0, $this->feedbackRateLimitPerMinute));
+
+        $this->toast('success', 'Feedback-Einstellungen gespeichert.', 'Ghostwriter');
+    }
+
+    public function addFeedbackTopic(): void
+    {
+        $value = trim($this->newFeedbackTopic);
+        if ($value === '' || in_array($value, $this->feedbackTopics, true)) {
+            $this->newFeedbackTopic = '';
+
+            return;
+        }
+        $this->feedbackTopics[] = $value;
+        $this->newFeedbackTopic = '';
+    }
+
+    public function removeFeedbackTopic(int $index): void
+    {
+        if (isset($this->feedbackTopics[$index])) {
+            array_splice($this->feedbackTopics, $index, 1);
+            $this->feedbackTopics = array_values($this->feedbackTopics);
+        }
     }
 
     public function clearHtmlSignature(): void
