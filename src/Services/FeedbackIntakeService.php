@@ -27,14 +27,14 @@ final class FeedbackIntakeService
 
         // Authenticatable does not declare email/name; rely on duck-typing on the host User model.
         $fromEmail = $user !== null
-            ? (string) ($user->email ?? '') // @phpstan-ignore-line
+            ? (string) ($user->email ?? '')
             : trim($dto->guestEmail);
         if ($fromEmail === '') {
             $fromEmail = self::ANONYMOUS_SENDER_SENTINEL;
         }
 
         $fromName = $user !== null
-            ? (string) ($user->name ?? '') // @phpstan-ignore-line
+            ? (string) ($user->name ?? '')
             : trim($dto->guestName);
         $fromName = $fromName !== '' ? $fromName : null;
 
@@ -46,8 +46,8 @@ final class FeedbackIntakeService
         $clientContext = $user !== null
             ? [
                 'id' => $user->getAuthIdentifier(),
-                'email' => $user->email ?? null, // @phpstan-ignore-line
-                'name' => $user->name ?? null, // @phpstan-ignore-line
+                'email' => $user->email ?? null,
+                'name' => $user->name ?? null,
             ]
             : null;
 
