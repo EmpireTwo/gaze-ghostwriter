@@ -15,6 +15,7 @@ use Empire2\GazeGhostwriter\Livewire\Admin\GhostwriterSettings;
 use Empire2\GazeGhostwriter\Livewire\Admin\PromptEditor;
 use Empire2\GazeGhostwriter\Livewire\Admin\PromptHistory;
 use Empire2\GazeGhostwriter\Livewire\Admin\SmartActionsManager;
+use Empire2\GazeGhostwriter\Livewire\FeedbackForm;
 use Empire2\GazeGhostwriter\Livewire\Toast;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -82,5 +83,6 @@ class GazeGhostwriterServiceProvider extends ServiceProvider
         Livewire::component('gaze-ghostwriter.prompt-history', PromptHistory::class);
         Livewire::component('gaze-ghostwriter.gaze-log', GazeLog::class);
         Livewire::component('gaze-ghostwriter.toast', Toast::class);
+        Livewire::component('gaze-ghostwriter.feedback-form', FeedbackForm::class);
     }
 }

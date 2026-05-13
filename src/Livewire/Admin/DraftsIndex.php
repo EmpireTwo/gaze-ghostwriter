@@ -484,7 +484,8 @@ class DraftsIndex extends Component
             $query->where(function ($q) use ($term): void {
                 $q->where('ghostwriter_support_mail_messages.from_email', 'like', $term)
                     ->orWhere('ghostwriter_support_mail_messages.from_name', 'like', $term)
-                    ->orWhere('ghostwriter_support_mail_messages.subject', 'like', $term);
+                    ->orWhere('ghostwriter_support_mail_messages.subject', 'like', $term)
+                    ->orWhere('ghostwriter_support_mail_messages.client_context', 'like', $term);
             });
         }
 

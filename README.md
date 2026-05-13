@@ -125,6 +125,37 @@ The bundled `partials/draft-smart-actions.blade.php` view contains optional link
 
 If the configured route name is not registered or the model class does not exist, the link falls back to `#` and the ticket section stays empty — the package never crashes when these are absent.
 
+## Web feedback channel
+
+In addition to the IMAP/SMTP support inbox, the package ships a drop-in Livewire form so that logged-in users or guests can send feedback directly from your frontend. Submissions land in the same Drafts overview, marked with a `WWW` pill (vs. `MAIL` for email-sourced messages).
+
+### Enable
+
+1. Open the Ghostwriter admin → **Settings** → **Feedback-Kanal**.
+2. Toggle **Feedback-Formular aktivieren**.
+3. Optionally configure:
+   - **Betreff-Feld einblenden und verpflichten** — show + require a subject input.
+   - **E-Mail bei Gast-Feedback verlangen** — when off, guests can submit without an email (those submissions become reply-orphans; the Reply button is disabled for them).
+   - **Themen** — optional dropdown values (e.g. `Bug`, `Feature`, `Billing`).
+   - **Rate-Limit pro Minute / IP** — per-IP submissions per minute (default `5`).
+
+### Embed
+
+Drop the component anywhere in your host Blade:
+
+```blade
+<livewire:gaze-ghostwriter-feedback-form />
+```
+
+That's it — no JavaScript, no extra route, no config file changes. The component:
+
+- resolves `Auth::user()` automatically and captures `id`, `email`, `name` snapshot (visible in the draft detail panel),
+- includes a hidden honeypot field and a per-IP rate limiter,
+- writes a `SupportMailMessage` row with `channel='web'` and dispatches an immediate draft job,
+- surfaces the new draft in the existing overview with a teal `WWW` pill.
+
+Replies go out through the same SMTP path as email-sourced drafts.
+
 ## Quick start
 
 ```php

@@ -47,7 +47,7 @@ final class SupportDraftReplySender
         $message = $draft->message;
 
         $toEmail = trim($message->from_email);
-        if ($toEmail === '') {
+        if ($toEmail === '' || $toEmail === FeedbackIntakeService::ANONYMOUS_SENDER_SENTINEL) {
             throw SupportDraftReplySendException::missingRecipient();
         }
 

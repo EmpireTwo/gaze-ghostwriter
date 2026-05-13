@@ -271,4 +271,55 @@
             </ul>
         </section>
     @endif
+
+    <section class="border rounded-lg p-5 mb-6 border-slate-200">
+        <h2 class="font-poppins text-sm font-semibold text-art-black mb-3">Feedback-Kanal</h2>
+
+        <label class="flex items-center gap-2 text-sm mb-2">
+            <input type="checkbox" wire:model.live="feedbackEnabled" class="rounded border-slate-300" />
+            <span>Feedback-Formular aktivieren</span>
+        </label>
+
+        <label class="flex items-center gap-2 text-sm mb-2">
+            <input type="checkbox" wire:model.live="feedbackRequireSubject" class="rounded border-slate-300" />
+            <span>Betreff-Feld einblenden und verpflichten</span>
+        </label>
+
+        <label class="flex items-center gap-2 text-sm mb-3">
+            <input type="checkbox" wire:model.live="feedbackRequireEmailForGuests" class="rounded border-slate-300" />
+            <span>E-Mail bei Gast-Feedback verlangen</span>
+        </label>
+
+        <div class="space-y-2 mb-3">
+            <label class="block text-sm font-medium">Themen (optional)</label>
+            <ul class="space-y-1">
+                @foreach ($feedbackTopics as $i => $topic)
+                    <li class="flex items-center gap-2 text-sm">
+                        <span class="flex-1 rounded bg-slate-100 px-2 py-1">{{ $topic }}</span>
+                        <button type="button" wire:click="removeFeedbackTopic({{ $i }})"
+                                class="text-xs text-red-600 hover:underline">entfernen</button>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="flex items-center gap-2">
+                <input type="text" wire:model.defer="newFeedbackTopic" placeholder="Neues Thema"
+                       class="flex-1 rounded border border-slate-300 px-2 py-1 text-sm" />
+                <button type="button" wire:click="addFeedbackTopic"
+                        class="rounded bg-slate-200 px-3 py-1 text-sm font-medium hover:bg-slate-300">+ hinzufügen</button>
+            </div>
+        </div>
+
+        <label class="flex items-center gap-2 text-sm mb-3">
+            <span class="w-48">Rate-Limit pro Minute / IP</span>
+            <input type="number" min="0" max="9999" wire:model.defer="feedbackRateLimitPerMinute"
+                   class="w-24 rounded border border-slate-300 px-2 py-1 text-right text-sm" />
+        </label>
+
+        <div>
+            <button type="button" wire:click="saveFeedbackSettings"
+                    class="rounded bg-art-black px-4 py-2 text-sm font-semibold text-white hover:opacity-90">
+                Feedback-Einstellungen speichern
+            </button>
+        </div>
+    </section>
 </div>

@@ -3,8 +3,10 @@
     $msg = $draft->message;
     $r = $draft->rationale;
     $originalParts = \Empire2\GazeGhostwriter\Support\MailReplyHistorySplitter::split((string) ($msg->body_text ?? ''));
+    $isAnonymousSender = $msg->from_email === \Empire2\GazeGhostwriter\Services\FeedbackIntakeService::ANONYMOUS_SENDER_SENTINEL;
     $canSendReply = in_array($draft->status, [\Empire2\GazeGhostwriter\Enums\DraftStatus::PENDING_REVIEW, \Empire2\GazeGhostwriter\Enums\DraftStatus::ACCEPTED], true)
-        && $draft->sent_at === null;
+        && $draft->sent_at === null
+        && ! $isAnonymousSender;
     $smtpReady = filled(config('gaze-ghostwriter.smtp.host')) && filled(config('gaze-ghostwriter.reply.from_address'));
     $gwViewer = auth()->user();
     $gwKiBody = $gwViewer !== null
@@ -88,6 +90,30 @@
             </div>
         @endif
     </section>
+
+    @if (($msg->channel ?? 'smtp') === 'web')
+        <section class="border border-teal-200 bg-teal-50/50 rounded-lg p-5">
+            <h2 class="font-poppins text-sm font-semibold text-teal-800 mb-3">Client-Kontext (Web-Feedback)</h2>
+            <dl class="grid grid-cols-2 gap-x-3 gap-y-1 text-xs-plus">
+                <dt class="text-art-text-muted">User-ID</dt>
+                <dd>{{ $msg->client_user_id ?? '—' }}</dd>
+                <dt class="text-art-text-muted">E-Mail</dt>
+                <dd>{{ data_get($msg->client_context, 'email', '—') }}</dd>
+                <dt class="text-art-text-muted">Name</dt>
+                <dd>{{ data_get($msg->client_context, 'name', '—') }}</dd>
+                <dt class="text-art-text-muted">Quelle</dt>
+                <dd class="truncate">
+                    @if (filled($msg->source_url))
+                        <a href="{{ $msg->source_url }}" target="_blank" rel="noopener" class="text-teal-700 underline">{{ $msg->source_url }}</a>
+                    @else
+                        —
+                    @endif
+                </dd>
+                <dt class="text-art-text-muted">Thema</dt>
+                <dd>{{ $msg->topic ?? '—' }}</dd>
+            </dl>
+        </section>
+    @endif
 
     @if ($draft->status === \Empire2\GazeGhostwriter\Enums\DraftStatus::SENT)
         <section class="border border-art-border rounded-lg p-5 bg-art-violet-bg/30">
