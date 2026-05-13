@@ -30,5 +30,5 @@ it('refuses to send a reply to the anonymous sentinel', function (): void {
     $sender = app(SupportDraftReplySender::class);
 
     expect(fn () => $sender->send($draft, sentByUserId: 1))
-        ->toThrow(SupportDraftReplySendException::class);
+        ->toThrow(SupportDraftReplySendException::class, 'Empfänger unbekannt');
 });
