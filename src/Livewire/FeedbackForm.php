@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 final class FeedbackForm extends Component
@@ -29,7 +30,8 @@ final class FeedbackForm extends Component
 
     public bool $submitted = false;
 
-    protected ?string $sourceUrl = null;
+    #[Locked]
+    public ?string $sourceUrl = null;
 
     public function mount(): void
     {

@@ -3,8 +3,10 @@
     $msg = $draft->message;
     $r = $draft->rationale;
     $originalParts = \Empire2\GazeGhostwriter\Support\MailReplyHistorySplitter::split((string) ($msg->body_text ?? ''));
+    $isAnonymousSender = $msg->from_email === \Empire2\GazeGhostwriter\Services\FeedbackIntakeService::ANONYMOUS_SENDER_SENTINEL;
     $canSendReply = in_array($draft->status, [\Empire2\GazeGhostwriter\Enums\DraftStatus::PENDING_REVIEW, \Empire2\GazeGhostwriter\Enums\DraftStatus::ACCEPTED], true)
-        && $draft->sent_at === null;
+        && $draft->sent_at === null
+        && ! $isAnonymousSender;
     $smtpReady = filled(config('gaze-ghostwriter.smtp.host')) && filled(config('gaze-ghostwriter.reply.from_address'));
     $gwViewer = auth()->user();
     $gwKiBody = $gwViewer !== null

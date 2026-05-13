@@ -115,6 +115,20 @@ it('silently succeeds on honeypot trip and creates nothing', function (): void {
     Bus::assertNotDispatched(GenerateDraftForFeedbackJob::class);
 });
 
+it('persists referer captured at mount as source_url on submit', function (): void {
+    GhostwriterSetting::setValue('feedback_enabled', 'true');
+
+    Livewire::withHeaders(['referer' => 'https://app.example.test/checkout'])
+        ->test(FeedbackForm::class)
+        ->assertSet('sourceUrl', 'https://app.example.test/checkout')
+        ->set('message', 'Page broke on checkout')
+        ->set('guestEmail', 'g@example.test')
+        ->call('submit')
+        ->assertSet('submitted', true);
+
+    expect(SupportMailMessage::first()->source_url)->toBe('https://app.example.test/checkout');
+});
+
 it('rate-limits after configured per-minute count', function (): void {
     GhostwriterSetting::setValue('feedback_enabled', 'true');
     GhostwriterSetting::setValue('feedback_rate_limit_per_minute', '2');
