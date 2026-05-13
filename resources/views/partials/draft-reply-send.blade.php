@@ -6,7 +6,14 @@
             Versand an <strong class="text-art-black">{{ $msg->from_email }}</strong> per SMTP (Konfiguration <code class="text-2xs bg-art-page px-1 rounded">GHOSTWRITER_SMTP_*</code>).
             Betreff: <strong class="text-art-black">Re:</strong> …; Threading über <code class="text-2xs bg-art-page px-1 rounded">In-Reply-To</code> / <code class="text-2xs bg-art-page px-1 rounded">References</code> zur Original-Mail.
         </p>
-        @if ($smtpReady)
+        @php
+            $isAnonymous = $msg->from_email === \Empire2\GazeGhostwriter\Services\FeedbackIntakeService::ANONYMOUS_SENDER_SENTINEL;
+        @endphp
+        @if ($isAnonymous)
+            <p class="font-poppins text-xs-plus text-amber-800">
+                Keine Antwortadresse — anonymes Feedback. Antwort nicht möglich.
+            </p>
+        @elseif ($smtpReady)
             <flux:button
                 type="button"
                 variant="primary"

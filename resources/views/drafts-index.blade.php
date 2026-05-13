@@ -147,6 +147,10 @@
                                         <span class="text-2xs text-art-text-muted whitespace-nowrap shrink-0">{{ $receivedLabel }}</span>
                                     </div>
                                     <p class="text-xs-plus truncate {{ filled($draft->message->subject) ? 'text-art-black' : 'text-art-text-muted italic' }}">{{ filled($draft->message->subject) ? $draft->message->subject : '(Kein Betreff)' }}</p>
+                                    @php
+                                        $isWeb = ($draft->message->channel ?? 'smtp') === 'web';
+                                    @endphp
+                                    <span class="ml-1 inline-flex items-center rounded-full px-2 py-0.5 text-2xs font-semibold {{ $isWeb ? 'bg-teal-100 text-teal-800' : 'bg-slate-100 text-slate-700' }}">{{ $isWeb ? 'WWW' : 'MAIL' }}</span>
                                     <div class="flex items-center gap-2 mt-0.5">
                                         <span class="inline-flex px-1.5 py-0.5 rounded text-2xs font-medium {{ $draft->status->badgeClasses() }}">{{ $draft->status->label() }}</span>
                                         @if ($draft->user_rating)
@@ -279,6 +283,10 @@
                                         <span class="text-2xs text-art-text-muted whitespace-nowrap shrink-0">{{ $receivedLabel }}</span>
                                     </div>
                                     <p class="text-xs-plus truncate {{ filled($draft->message->subject) ? 'text-art-black' : 'text-art-text-muted italic' }}">{{ filled($draft->message->subject) ? $draft->message->subject : '(Kein Betreff)' }}</p>
+                                    @php
+                                        $isWeb = ($draft->message->channel ?? 'smtp') === 'web';
+                                    @endphp
+                                    <span class="ml-1 inline-flex items-center rounded-full px-2 py-0.5 text-2xs font-semibold {{ $isWeb ? 'bg-teal-100 text-teal-800' : 'bg-slate-100 text-slate-700' }}">{{ $isWeb ? 'WWW' : 'MAIL' }}</span>
                                     <p class="text-2xs text-art-text-muted line-clamp-1">{{ Str::limit(str_replace(["\r\n", "\n"], ' ', strip_tags((string) $draft->message->body_text)), 120) }}</p>
                                     <p class="text-2xs text-art-text-muted/70">{{ $draft->message->from_email }}</p>
                                 </div>

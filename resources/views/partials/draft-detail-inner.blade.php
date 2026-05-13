@@ -89,6 +89,30 @@
         @endif
     </section>
 
+    @if (($msg->channel ?? 'smtp') === 'web')
+        <section class="border border-teal-200 bg-teal-50/50 rounded-lg p-5">
+            <h2 class="font-poppins text-sm font-semibold text-teal-800 mb-3">Client-Kontext (Web-Feedback)</h2>
+            <dl class="grid grid-cols-2 gap-x-3 gap-y-1 text-xs-plus">
+                <dt class="text-art-text-muted">User-ID</dt>
+                <dd>{{ $msg->client_user_id ?? '—' }}</dd>
+                <dt class="text-art-text-muted">E-Mail</dt>
+                <dd>{{ data_get($msg->client_context, 'email', '—') }}</dd>
+                <dt class="text-art-text-muted">Name</dt>
+                <dd>{{ data_get($msg->client_context, 'name', '—') }}</dd>
+                <dt class="text-art-text-muted">Quelle</dt>
+                <dd class="truncate">
+                    @if (filled($msg->source_url))
+                        <a href="{{ $msg->source_url }}" target="_blank" rel="noopener" class="text-teal-700 underline">{{ $msg->source_url }}</a>
+                    @else
+                        —
+                    @endif
+                </dd>
+                <dt class="text-art-text-muted">Thema</dt>
+                <dd>{{ $msg->topic ?? '—' }}</dd>
+            </dl>
+        </section>
+    @endif
+
     @if ($draft->status === \Empire2\GazeGhostwriter\Enums\DraftStatus::SENT)
         <section class="border border-art-border rounded-lg p-5 bg-art-violet-bg/30">
             <h2 class="font-poppins text-sm font-semibold text-art-black mb-3">
