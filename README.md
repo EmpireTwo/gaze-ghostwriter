@@ -1,12 +1,12 @@
 # gaze-ghostwriter
 
-AI-assisted support-mail ghostwriter for Laravel — IMAP inbound, RAG-augmented draft generation, and PII-safe LLM calls through `empiretwo/gaze-laravel`.
+AI-assisted support ghostwriter for Laravel — dual inbound (IMAP mail + drop-in web feedback form), RAG-augmented draft generation, and PII-safe LLM calls through `empiretwo/gaze-laravel`.
 
 [![CI](https://github.com/EmpireTwo/gaze-ghostwriter/actions/workflows/ci.yml/badge.svg)](https://github.com/EmpireTwo/gaze-ghostwriter/actions/workflows/ci.yml)
 [![Latest Version](https://img.shields.io/packagist/v/empire2/gaze-ghostwriter.svg)](https://packagist.org/packages/empire2/gaze-ghostwriter)
 [![License](https://img.shields.io/github/license/EmpireTwo/gaze-ghostwriter.svg)](LICENSE)
 
-`gaze-ghostwriter` watches a support inbox, generates structured draft replies through the Laravel AI agent contract, and persists every prompt + response so you can review, edit, send (SMTP), or escalate to GitHub. Every outbound LLM call goes through a single boundary (`GuardedAgentRunner`) that runs `gaze clean` / `gaze restore` around the model invocation — placeholder tokens never leak into stored fields.
+`gaze-ghostwriter` ingests support requests from two channels — an IMAP inbox and a drop-in Livewire web feedback form — generates structured draft replies through the Laravel AI agent contract, and persists every prompt + response so you can review, edit, send (SMTP), or escalate to GitHub. Every outbound LLM call goes through a single boundary (`GuardedAgentRunner`) that runs `gaze clean` / `gaze restore` around the model invocation — placeholder tokens never leak into stored fields.
 
 ## Requirements
 
